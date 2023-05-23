@@ -2,8 +2,8 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
-import { About } from "./components/About";
-import { More } from "./components/More";
+import { About } from "./pages/About";
+import { More } from "./pages/More";
 import { Navibar } from "./components/NaviBar";
 
 export const App = () => {
