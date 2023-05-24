@@ -63,7 +63,7 @@ export const PostListItem = ({ post }) => {
               <Loader />
             ) : (
               <div>
-                <h3 className="pt-20">Comments:</h3>
+                <h3 className="m-3">Comments:</h3>
                 {comments.map((comment) => (
                   <CommentListItem comment={comment} key={comment.id} />
                 ))}

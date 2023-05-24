@@ -1,0 +1,68 @@
+.about-section {
+  margin-bottom: 20px;
+}
+
+.about-section h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.about-section p {
+  margin-bottom: 10px;
+}
+.desired-position-section h4,
+.experience-section h4,
+.education-section h4,
+.qualification-section h4,
+.skills-section h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #808080; /* Серый цвет */
+}
+
+.desired-position-section::before,
+.experience-section::before,
+.education-section::before,
+.qualification-section::before,
+.skills-section::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #808080; /* Серый цвет */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.desired-position-section p,
+.specializations-section ul,
+.employment-section p,
+.work-schedule-section p,
+.experience-section h5,
+.experience-section p,
+.education-section p,
+.qualification-section p,
+.skills-section ul,
+.resume-update-section p {
+  margin-bottom: 10px;
+}
+
+.experience-section h5 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.skills-section ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.skills-section ul li {
+  margin-bottom: 5px;
+}
+
+.resume-update-section p {
+  font-style: italic;
+}

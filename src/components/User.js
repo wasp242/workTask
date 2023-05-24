@@ -11,37 +11,29 @@ export const User = () => {
   const userId = location.pathname.split("/")[2];
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
-  const [loadingUser, setLoadingUser] = useState(true);
-  const [loadingPosts, setLoadingPosts] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://jsonplaceholder.typicode.com/users/${userId}`
-        );
-        setUser(response.data);
-        setLoadingUser(false);
+        setTimeout(async () => {
+          const userDetailsResponse = await axios.get(
+            `https://jsonplaceholder.typicode.com/users/${userId}`
+          );
+          const userPostsResponse = await axios.get(
+            `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+          );
+          setUser(userDetailsResponse.data);
+          setUserPosts(userPostsResponse.data);
+          setLoading(false);
+        }, 500);
       } catch (error) {
         console.error(error);
       }
     };
-
-    const fetchUserPosts = async () => {
-      try {
-        const response = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-        );
-        setUserPosts(response.data);
-        setLoadingPosts(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUserDetails();
-    fetchUserPosts();
+    fetchData();
   }, [userId]);
+
   const goBack = () => {
     navigate("/");
   };
@@ -51,24 +43,18 @@ export const User = () => {
       <button className="btn btn-primary mb-3" onClick={goBack}>
         Back
       </button>
-      {loadingUser ? (
+      {loading ? (
         <Loader />
       ) : (
         <div>
-          <h2>User Details:</h2>
+          <h2 className="m-2">User Details:</h2>
           <p>
             <strong>Name:</strong> {user.name}
           </p>
           <p>
             <strong>Email:</strong> {user.email}
           </p>
-        </div>
-      )}
-      {loadingPosts ? (
-        <Loader />
-      ) : (
-        <div>
-          <h2>User Posts:</h2>
+          <h2 className="m-2">User Posts:</h2>
           {userPosts.map((post) => (
             <PostListItem post={post} key={post.id} />
           ))}
