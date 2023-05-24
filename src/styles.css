@@ -1,0 +1,17 @@
+.sidebar-open .navbar-collapse {
+  transform: translateX(0%);
+}
+
+.sidebar-open .navbar-collapse.collapsing {
+  transition: transform 0.3s ease-in;
+  transform: translateX(-100%);
+}
+
+.sidebar-open .navbar-collapse.show {
+  transition: transform 0.3s ease-out;
+  transform: translateX(-100%);
+}
+
+.sidebar-open .navbar-toggler {
+  display: none;
+}
