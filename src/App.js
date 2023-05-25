@@ -4,13 +4,13 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
 import { About } from "./pages/About";
 import { More } from "./pages/More";
-import { Header } from "./components/Header";
 import { User } from "./components/User";
+import { Navibar } from "./components/Navibar";
 
 export const App = () => {
   return (
     <>
-      <Header />
+      <Navibar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
