@@ -1,38 +1,24 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
 import { PostListItem } from "./PostListItem.js";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserDetailsRequest, fetchUserPostsRequest } from "./../actions";
 
 export const User = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const userId = location.pathname.split("/")[2];
-  const [user, setUser] = useState(null);
-  const [userPosts, setUserPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const user = useSelector((state) => state.user);
+  const userPosts = useSelector((state) => state.userPosts);
+  const loading = useSelector((state) => state.loadingUser);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setTimeout(async () => {
-          const userDetailsResponse = await axios.get(
-            `https://jsonplaceholder.typicode.com/users/${userId}`
-          );
-          const userPostsResponse = await axios.get(
-            `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-          );
-          setUser(userDetailsResponse.data);
-          setUserPosts(userPostsResponse.data);
-          setLoading(false);
-        }, 500);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, [userId]);
+    dispatch(fetchUserDetailsRequest(userId));
+    dispatch(fetchUserPostsRequest(userId));
+  }, [dispatch, userId]);
 
   const goBack = () => {
     navigate("/");

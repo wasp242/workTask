@@ -3,36 +3,22 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Loader } from "./Loader";
 import { CommentListItem } from "./CommentListItem";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCommentsRequest } from "./../actions";
 
 export const PostListItem = ({ post }) => {
-  const [comments, setComments] = useState([]);
-  const [loadingComments, setLoadingComments] = useState(false);
-  const [selectedPost, setSelectedPost] = useState(null);
+  const dispatch = useDispatch();
+  const comments = useSelector((state) => state.comments[post.id]);
+  const loadingComments = useSelector(
+    (state) => state.loadingComments[post.id]
+  );
+  const selectedPost = useSelector((state) => state.selectedPost);
 
-  const toggleComments = async (postId) => {
+  const toggleComments = (postId) => {
     if (selectedPost === postId) {
-      setSelectedPost(null);
-      setComments([]);
+      dispatch(fetchCommentsRequest(null));
     } else {
-      setSelectedPost(postId);
-      if (comments.length === 0) {
-        await fetchComments(postId);
-      }
-    }
-  };
-
-  const fetchComments = async (postId) => {
-    try {
-      setLoadingComments(true);
-      setTimeout(async () => {
-        const response = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
-        );
-        setComments(response.data);
-        setLoadingComments(false);
-      }, 500);
-    } catch (error) {
-      console.error(error);
+      dispatch(fetchCommentsRequest(postId));
     }
   };
 
@@ -64,9 +50,13 @@ export const PostListItem = ({ post }) => {
             ) : (
               <div>
                 <h3 className="m-3">Comments:</h3>
-                {comments.map((comment) => (
-                  <CommentListItem comment={comment} key={comment.id} />
-                ))}
+                {comments && comments.length > 0 ? (
+                  comments.map((comment) => (
+                    <CommentListItem comment={comment} key={comment.id} />
+                  ))
+                ) : (
+                  <p>No comments found.</p>
+                )}
               </div>
             )}
           </div>
