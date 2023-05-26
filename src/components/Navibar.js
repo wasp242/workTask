@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from "../img/1.jpg";
 
 export const Navibar = () => {
   return (
@@ -22,10 +23,23 @@ export const Navibar = () => {
             id="offcanvasDarkNavbar"
             aria-labelledby="offcanvasDarkNavbarLabel"
           >
-            <div className="offcanvas-header">
-              <h3 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
-                Тестовое задание
-              </h3>
+            <div className="offcanvas-header justify-content-sm-between">
+              <img
+                className="avatar"
+                style={{ borderRadius: "50%" }}
+                width={50}
+                height={50}
+                src={img}
+                alt="Аватар"
+              />
+
+              <div className="user-details">
+                <h3 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
+                  Александр Досаев
+                </h3>
+                <p className="user-email">alexander.dosaev@gmail.com</p>
+              </div>
+
               <button
                 type="button"
                 className="btn-close btn-close-white"
@@ -34,18 +48,26 @@ export const Navibar = () => {
               ></button>
             </div>
             <div className="offcanvas-body">
-              <ul className="navbar-nav justify-content-start flex-grow-1 pe-3">
+              <ul
+                className="navbar-nav justify-content-start flex-grow-1 pe-3"
+                style={{ fontSize: "25px" }}
+              >
                 <li className="nav-item">
-                  <Link to="/">Список постов</Link>
+                  <Link to="/" className="nav-link">
+                    Список постов
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/about">Обо мне</Link>
+                  <Link to="/about" className="nav-link">
+                    Обо мне
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </nav>
+      <div style={{ marginBottom: "55px" }}></div>
     </>
   );
 };
