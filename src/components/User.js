@@ -4,7 +4,10 @@ import { Loader } from "./Loader";
 import { PostListItem } from "./PostListItem.js";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserPostsRequest } from "../saga/actions";
+import {
+  fetchUserPostsRequest,
+  fetchUserDetailsRequest,
+} from "../saga/actions";
 
 export const User = () => {
   const dispatch = useDispatch();
@@ -17,6 +20,7 @@ export const User = () => {
 
   useEffect(() => {
     dispatch(fetchUserPostsRequest(userId));
+    dispatch(fetchUserDetailsRequest(userId));
   }, [dispatch, userId]);
 
   const goBack = () => {
