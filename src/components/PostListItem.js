@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Loader } from "./Loader";
 import { CommentListItem } from "./CommentListItem";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCommentsRequest } from "./../actions";
+import { fetchCommentsRequest } from "../saga/actions";
 
 export const PostListItem = ({ post }) => {
   const dispatch = useDispatch();

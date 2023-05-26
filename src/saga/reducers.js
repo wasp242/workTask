@@ -1,7 +1,4 @@
 import {
-  FETCH_USER_DETAILS_REQUEST,
-  FETCH_USER_DETAILS_SUCCESS,
-  FETCH_USER_DETAILS_FAILURE,
   FETCH_USER_POSTS_REQUEST,
   FETCH_USER_POSTS_SUCCESS,
   FETCH_USER_POSTS_FAILURE,
@@ -27,24 +24,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_USER_DETAILS_REQUEST:
-      return {
-        ...state,
-        loadingUser: true,
-        error: null,
-      };
-    case FETCH_USER_DETAILS_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-        loadingUser: false,
-      };
-    case FETCH_USER_DETAILS_FAILURE:
-      return {
-        ...state,
-        loadingUser: false,
-        error: action.payload,
-      };
     case FETCH_USER_POSTS_REQUEST:
       return {
         ...state,
@@ -54,7 +33,8 @@ const reducer = (state = initialState, action) => {
     case FETCH_USER_POSTS_SUCCESS:
       return {
         ...state,
-        userPosts: action.payload,
+        userPosts: action.payload.posts,
+        user: action.payload.user,
         loadingPosts: false,
       };
     case FETCH_USER_POSTS_FAILURE:

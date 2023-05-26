@@ -1,45 +1,17 @@
 import { takeEvery, call, put, all, delay } from "redux-saga/effects";
 import axios from "axios";
+import {
+  fetchUserPostsSuccess,
+  fetchUserPostsFailure,
+  fetchPostsSuccess,
+  fetchPostsFailure,
+  fetchCommentsSuccess,
+  fetchCommentsFailure,
+  FETCH_COMMENTS_REQUEST,
+  FETCH_POSTS_REQUEST,
+  FETCH_USER_POSTS_REQUEST,
+} from "./actions";
 
-// Action Types
-const FETCH_POSTS_REQUEST = "FETCH_POSTS_REQUEST";
-const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS";
-const FETCH_POSTS_FAILURE = "FETCH_POSTS_FAILURE";
-const FETCH_COMMENTS_REQUEST = "FETCH_COMMENTS_REQUEST";
-const FETCH_COMMENTS_SUCCESS = "FETCH_COMMENTS_SUCCESS";
-const FETCH_COMMENTS_FAILURE = "FETCH_COMMENTS_FAILURE";
-
-// Actions
-const fetchPostsRequest = () => ({
-  type: FETCH_POSTS_REQUEST,
-});
-
-const fetchPostsSuccess = (posts) => ({
-  type: FETCH_POSTS_SUCCESS,
-  payload: posts,
-});
-
-const fetchPostsFailure = (error) => ({
-  type: FETCH_POSTS_FAILURE,
-  payload: error,
-});
-
-const fetchCommentsRequest = (postId) => ({
-  type: FETCH_COMMENTS_REQUEST,
-  payload: postId,
-});
-
-const fetchCommentsSuccess = (comments) => ({
-  type: FETCH_COMMENTS_SUCCESS,
-  payload: comments,
-});
-
-const fetchCommentsFailure = (error) => ({
-  type: FETCH_COMMENTS_FAILURE,
-  payload: error,
-});
-
-// Sagas
 function* fetchPostsSaga() {
   try {
     yield delay(500);
@@ -90,7 +62,10 @@ function* watchFetchPosts() {
 function* watchFetchComments() {
   yield takeEvery(FETCH_COMMENTS_REQUEST, fetchCommentsSaga);
 }
+function* watchFetchUserPosts() {
+  yield takeEvery(FETCH_USER_POSTS_REQUEST, fetchUserPostsSaga);
+}
 
 export default function* rootSaga() {
-  yield all([watchFetchPosts(), watchFetchComments()]);
+  yield all([watchFetchPosts(), watchFetchComments(), watchFetchUserPosts()]);
 }
